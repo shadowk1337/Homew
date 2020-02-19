@@ -1,0 +1,60 @@
+Task 1
+#include <stdio.h>
+
+int main()
+{
+    char seq;
+    while (seq = getchar()){
+        if (seq != ' ')
+            putchar(seq);
+    }
+    return 0;
+}
+
+
+Task 2
+#include <stdio.h>
+
+int main()
+{
+    char seq;
+    int flag = 0;
+    while (seq = getchar()){
+        if (seq != ' '){
+            putchar(seq);
+            flag = 0;   
+        }
+        else if (seq == ' ' && flag != 1){
+            putchar('\n');
+            flag = 1;
+        }
+    }
+    return 0;
+}
+
+
+Task 3
+#include <stdio.h>
+
+int main()
+{
+    char seq, buff;
+    int count = 0;
+    while (seq = getchar()){
+        if (seq == buff)
+            count++;
+        else if (seq != buff && count >= 3){
+            int i;
+            for (i = 0; i < count; i++)
+                putchar(buff);
+            putchar('\n');
+        }
+        if (seq != buff)
+            count = 0;
+        if (count == 0){
+            buff = seq;
+            count++;
+        }
+    }
+    return 0;
+}
