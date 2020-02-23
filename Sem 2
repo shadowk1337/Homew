@@ -36,24 +36,27 @@ int main()
 Task 3
 #include <stdio.h>
 
-int main()
-{
-    char seq, buff;
-    int count = 0;
-    while (seq = getchar()){
-        if (seq == buff)
-            count++;
-        else if (seq != buff && count >= 3){
-            int i;
-            for (i = 0; i < count; i++)
-                putchar(buff);
-            putchar('\n');
+int main() {
+    int c, flag = 1, buff, count = 0, n = 0;
+    while ((c = getchar()) != EOF) {
+        if (c != ' ' || c != '\n' || c != '\t') {
+            if (n == 1 && flag == 1){
+                printf("\n");
+                n = 0;
+            }
+            if (c == buff)
+                flag++;
+            else
+                flag = 1;
+            buff = c;
         }
-        if (seq != buff)
+        if (flag >= 3) {
+            for (count; count < flag; count++) {
+                putchar(c);
+                n = 1;
+            }
+        }else {
             count = 0;
-        if (count == 0){
-            buff = seq;
-            count++;
         }
     }
     return 0;
