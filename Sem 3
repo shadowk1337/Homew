@@ -1,0 +1,30 @@
+Task 2
+#include <stdio.h>
+#include <limits.h>
+#define ArSize 50
+
+int main(){
+    char s1[ArSize];
+    char s2[ArSize];
+    char c;
+    int i = 0, j = 0;
+    while ((c = getchar()) != '\n'){
+        s1[i] = c;
+        i++;
+    }
+    while ((c = getchar()) != '\n'){
+        s2[j] = c;
+        j++;
+    }
+    for (int v = 0; v <= i; v++){
+        for (int x = 0; x <= j; x++){
+            if (s1[v] == s2[x])
+                s1[v] = 0;
+        }
+    }
+    for (int x = 0; x <= i; x++){
+        if (s1[x] != 0)
+            printf ("%c", s1[x]);
+    }
+    return 0;
+}
