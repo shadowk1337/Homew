@@ -76,7 +76,7 @@ int todec (int arr[], int size){
     return (dec);
 }
 
-Task 3
+Task 2
 #include <stdio.h>
 
 int main()
