@@ -1,4 +1,3 @@
-Task 1
 #include <stdio.h>
 #define ArSize 50
 
@@ -8,29 +7,26 @@ int main() {
     char s1[ArSize];
     char s2[ArSize];
     int count1 = 0, count2 = 0;
-    printf("Enter the first sequence:\n");
-    while ((s1[count1] = getchar()) != '\n')
-        count1++;
-    printf("Enter the second sequence:\n");
-    while ((s2[count2] = getchar()) != '\n')
-        count2++;
-    printf("%d", search(s1, count1, s2, count2));
+    while (1 != 0) {
+        count1 = 0, count2 = 0;
+        printf("> ");
+        while ((s1[count1] = getchar()) != '\n')
+            count1++;
+        printf("> ");
+        while ((s2[count2] = getchar()) != '\n')
+            count2++;
+        printf("%d\n", search(s1, count1, s2, count2));
+    }
     return 0;
 }
 
 int search (char ar1[], int ar1size, char ar2[], int ar2size){
     int i;
-    int flag = 0;
-    for (i = 0; i < ar1size; i++){
+    for (i = 0; i < ar1size; i++) {
         for (int j = 0; j < ar2size; j++)
             if (ar1[i] == ar2[j]) {
-                flag = 1;
-                break;
+                return i + 1;
             }
-        if (flag == 1)
-            break;
     }
-    if (flag == 1)
-        return i + 1;
-    else return (-1);
+    return -1;
 }
