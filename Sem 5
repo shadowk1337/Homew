@@ -1,3 +1,4 @@
+Task 1
 #include <stdio.h>
 #define ArSize 50
 
@@ -29,4 +30,53 @@ int search (char ar1[], int ar1size, char ar2[], int ar2size){
             }
     }
     return -1;
+}
+
+Task 2
+#include <stdio.h>
+#include <math.h>
+
+double calculate (int a, int b, char c);
+
+int main()
+{
+    int val1, val2, res;
+    char oprtn;
+    
+    printf("> ");
+    scanf("%d %d %c", &val1, &val2, &oprtn);
+    res = calculate(val1, val2, oprtn);
+    while (scanf("%d %c", &val1, &oprtn))
+        res = calculate(res, val1, oprtn);
+    printf("%d", res);
+    return 0;
+}
+
+double calculate (int a, int b, char c){
+    switch(c){
+        case ('+'):
+            return a + b;
+            break;
+        case ('-'):
+            return a - b;
+            break;
+        case ('*'):
+            return a * b;
+            break;
+        case ('/'):
+            return a / b;
+            break;
+        case ('^'):
+            return pow(a, b);
+            break;
+        case ('%'):
+            return a % b;
+            break;
+        case ('s'):
+            return sin(a);
+            break;
+        case ('c'):
+            return cos(a);
+            break;
+    }
 }
