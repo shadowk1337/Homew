@@ -1,0 +1,11 @@
+Task 1
+#include <stdio.h>
+#define SWAP(s, a, b){s tmp = a; a = b; b = tmp;}
+
+int main() {
+    int x = 1;
+    int y = 10;
+    SWAP(double, x, y);
+    printf("%d %d", x, y);
+    return 0;
+}
