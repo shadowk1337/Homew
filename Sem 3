@@ -133,7 +133,7 @@ int main()
                 printf("%c ", '#');
                 arr[i]--;
             }else
-                printf(" ");
+                printf("  ");
 
         }
         max--;
