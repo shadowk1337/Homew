@@ -9,3 +9,27 @@ int main() {
     printf("%d %d", x, y);
     return 0;
 }
+
+Task 2
+#include <stdio.h>
+#include <string.h>
+#define ArSize 50
+
+int binary_search (int ar[], int val, int left, int right);
+
+int main() {
+    int seq[ArSize] = {1, 2, 3, 4, 5, 6, 7, 8};
+    int val = 1;
+    printf("%d", binary_search(seq, val, 0, 7));
+    return 0;
+}
+
+int binary_search (int ar[], int val, int left, int right){
+    int mid;
+    mid = (left + right) / 2;
+    if (val > ar[mid])
+        return binary_search(ar, val, mid + 1, right);
+    else if (val < ar[mid])
+        return binary_search(ar, val, left, mid - 1);
+    return mid;
+}
