@@ -30,3 +30,28 @@ void shellsort (int* ar, int n){
                 ar[j + gap] = tmp;
             }
 }
+
+Task 2
+#include <stdio.h>
+#include <stdlib.h>
+#define ARSIZE 50
+
+char* readline (void);
+
+int main() {
+    int* pl;
+    pl = readline();
+    printf("%s", pl);
+    return 0;
+}
+
+char* readline (void){
+    char* pl;
+    int i = 0;
+    pl = (char*) malloc(1);
+    while ((pl[i++] = getchar()) != '\n'){
+        pl = (char*) realloc(pl, i * sizeof(char));
+    }
+    pl[i] = '\0';
+    return pl;
+}
