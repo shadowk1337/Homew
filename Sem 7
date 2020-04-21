@@ -1,0 +1,32 @@
+Task 1
+#include <stdio.h>
+#include <stdlib.h>
+#define ARSIZE 50
+
+void shellsort (int* ar, int n);
+
+int main() {
+    int* pa;
+    int n, i = 0;
+    printf("> ");
+    scanf("%d", &n);
+    pa = (int*) malloc(n * sizeof(int));
+    while (i < n)
+        scanf("%d", &pa[i++]);
+    shellsort(pa, n);
+    for(int j = 0; j < n; j++)
+        printf("%d ", pa[j]);
+    free(pa);
+    return 0;
+}
+
+void shellsort (int* ar, int n){
+    int i, j, gap, tmp;
+    for (gap = n / 2; gap > 0; gap /= 2)
+        for (i = gap; i < n; i++)
+            for (j = i - gap; j >= 0 && ar[j] > ar[j + gap]; j -= gap){
+                tmp = ar[j];
+                ar[j] = ar[j + gap];
+                ar[j + gap] = tmp;
+            }
+}
