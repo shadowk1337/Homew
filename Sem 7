@@ -34,24 +34,24 @@ void shellsort (int* ar, int n){
 Task 2
 #include <stdio.h>
 #include <stdlib.h>
-#define ARSIZE 50
 
 char* readline (void);
 
 int main() {
-    int* pl;
-    pl = readline();
-    printf("%s", pl);
+    int* pa = readline();
+    printf("%s", pa);
     return 0;
 }
 
 char* readline (void){
-    char* pl;
-    int i = 0;
-    pl = (char*) malloc(1);
-    while ((pl[i++] = getchar()) != '\n'){
-        pl = (char*) realloc(pl, i * sizeof(char));
+    char* pa;
+    char c;
+    int size = sizeof(char), i = 0;
+    pa = (char*) malloc (size);
+    while ((c = getchar()) != '\n'){
+        pa = (char*) realloc (pa, size += sizeof(char));
+        pa[i++] = c;
     }
-    pl[i] = '\0';
-    return pl;
+    pa[i] = '\0';
+    return pa;
 }
