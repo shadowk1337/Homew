@@ -34,6 +34,56 @@ int binary_search (int ar[], int val, int left, int right){
     return mid;
 }
 
+Task 3
+#include <stdio.h>
+#include <stdlib.h>
+
+void swap (int ar[], int i, int j);
+void my_qsort (int* ar, int left, int right);
+void func (int ar[], int left, int right);
+
+int main() {
+    int seq[50] = {4, 1, 24, 55, 1, 3, 2};
+    my_qsort(seq, 0, 7);
+    putchar('\n');
+    for (int i = 0; i <= 7; i++)
+        printf("%d ", seq[i]);
+    return 0;
+}
+
+void my_qsort (int ar[], int left, int right){
+    int i, last;
+    void swap(int ar[], int i, int j);
+    if (left >= right)
+        return;
+    swap(ar, left, (left + right) / 2);
+    last = left;
+    for(i = left+1; i <= right; i++)
+        if (ar[i] < ar[left])
+            swap(ar, ++last, i);
+    swap(ar, left, last);
+    for (int j = last; j > left; j--)
+        func(ar, left, j);
+    for (int j = last; j < right; j++)
+        func(ar, j, right);
+}
+
+void func (int ar[], int left, int right){
+    int cyc_last;
+    swap(ar, left, (left + right)/2);
+    cyc_last = left;
+    for(int i = left+1; i <= right; i++)
+        if (ar[i] < ar[left])
+            swap(ar, ++cyc_last, i);
+    swap(ar, left, cyc_last);
+}
+
+void swap (int* ar, int i, int j){
+    int tmp = ar[j];
+    ar[j] = ar[i];
+    ar[i] = tmp;
+}
+
 Task 4
 1
 #include <stdio.h>
