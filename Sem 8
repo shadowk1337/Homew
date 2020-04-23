@@ -21,3 +21,44 @@ int strend (char* s, char* t){
 }
 
 Task 2
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+void shellsort (char* s[], int k);
+void swap (int* ar, int i, int j);
+
+int main() {
+    char* paa;
+    char c;
+    int n;
+    scanf("%d\n", &n);
+    char *pa[n];
+    for (int i = 0; i < n; i++){
+        int j;
+        paa = (char*)malloc(sizeof(char));
+        for (j = 0; (c = getchar()) != '\n'; j++){
+            paa = (char*)realloc(paa, (j + 1) * sizeof(char));
+            paa[j] = c;
+        }
+        paa[j+1] = '\0';
+        pa[i] = paa;
+    }
+    shellsort(pa, n);
+    for (int i = 0; i < n; i++)
+        printf("%s ", pa[i]);
+    return 0;
+}
+
+void shellsort (char* s[], int k){
+    int gap;
+    char* tmp;
+    for (gap = k / 2; gap > 0; gap /= 2){
+        for (int i = gap; i < k; i++)
+            for (int j = i - gap; j >= 0 && strlen(s[j]) > strlen(s[j + gap]); j -= gap) {
+                tmp = s[j];
+                s[j] = s[i];
+                s[i] = tmp;
+            }
+    }
+}
