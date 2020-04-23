@@ -37,19 +37,33 @@ Task 2
 #include <math.h>
 
 double calculate (int a, int b, char c);
+int read (int val);
 
 int main()
 {
-    int val1, val2, res;
-    char oprtn;
-    
+    int val1;
+    double res;
+    int i = 0;
     printf("> ");
-    scanf("%d %d %c", &val1, &val2, &oprtn);
-    res = calculate(val1, val2, oprtn);
-    while (scanf("%d %c", &val1, &oprtn))
-        res = calculate(res, val1, oprtn);
-    printf("%d", res);
+    scanf("%d", &val1);
+    res = read(val1);
+    while (i != 1){
+        res = read(res);
+        i++;
+    }
+    printf("%g", res);
     return 0;
+}
+
+int read (int val){
+    int b;
+    char optn;
+    double res;
+    scanf("%d", &b);
+    scanf(" %c", &optn);
+    printf("op %c\n", optn);
+    res = calculate(val, b, optn);
+    return res;
 }
 
 double calculate (int a, int b, char c){
