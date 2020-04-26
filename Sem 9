@@ -1,0 +1,11 @@
+void inclusionSort (int *ar, int size){
+    for (int i = 1; i < size; i++){
+        int value = ar[i];
+        int index = i;
+        while ((index > 0) && (ar[index - 1] > value)){
+            ar[index] = ar[index - 1];
+            index--;
+        }
+        ar[index] = value;
+    }
+}
