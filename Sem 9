@@ -40,3 +40,45 @@ int main(int argc, char *argv[]) {
     putchar('\n');
     fclose(fp);
 }
+
+TASK 3
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+
+int main(int argc, char *argv[]) {
+    FILE *fp;
+    int p, n;
+    int ch;
+    int count = 0, j = 1;
+    int page = 1;
+    if (argc < 6){
+        fprintf(stderr, "Использование: %s -p число -n число", argv[0]);
+        exit(EXIT_FAILURE);
+    }
+    p = atoi(argv[3]);
+    n = atoi(argv[5]);
+    if ((fp = fopen(argv[1], "r")) == NULL){
+        fprintf(stderr, "Невозможно открыть файл %s", argv[1]);
+        exit(EXIT_FAILURE);
+    }
+    printf("%d: ", j);
+    while ((ch = getc(fp)) != EOF){
+        if (ch == '\n' || count == n - 1){
+            putchar('\n');
+            if (j++ == p){
+                printf("--Page%d--\n", page++);
+                j = 1;
+            }
+            printf("%d: ", j);
+            if ((count == n - 1) && (ch != '\n'))
+                putchar(ch);
+            count = 0;
+            continue;
+        }
+        count++;
+        putchar(ch);
+    }
+    printf("\n--Page%d--\n", page);
+    fclose(fp);
+}
