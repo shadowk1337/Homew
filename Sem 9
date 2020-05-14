@@ -9,3 +9,34 @@ void inclusionSort (int *ar, int size){
         ar[index] = value;
     }
 }
+
+TASK 1
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+#define SIZE 1000
+
+int main(int argc, char *argv[]) {
+    FILE *fp;
+    int ch, count = 0;
+    char str[SIZE];
+    int max = atoi(argv[2]);
+    if ((fp = fopen(argv[1], "r")) == NULL){
+        fprintf(stderr, "Не удалось открыть файл %s", argv[1]);
+        exit(EXIT_FAILURE);
+    }
+    while ((ch = getc(fp)) != EOF){
+        if (ch == '\n')
+            count++;
+    }
+    if (ch == EOF)
+        count++;
+    rewind(fp);
+    for (int i = 0; i < count; i++){
+        fgets(str, SIZE, fp);
+        if (i >= count - max)
+            fputs(str, stdout);
+    }
+    putchar('\n');
+    fclose(fp);
+}
