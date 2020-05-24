@@ -1,0 +1,97 @@
+TASK 1
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+#include <stdlib.h>
+#define ARSIZE 100
+
+typedef struct tnode{
+    char s[ARSIZE];
+    int count;
+    struct tnode *right;
+    struct tnode *left;
+}Tnode;
+
+Tnode *addtree (Tnode *ps, char *s);
+void print_tree_ASC (Tnode *ps);
+void print_tree_DESC (Tnode *ps);
+
+int main(int argc, char *argv[]){
+    Tnode *p = NULL;
+    char c;
+    FILE *f;
+    char ar[ARSIZE];
+    int i = 0;
+    if (argc == 2){
+        if ((f = fopen(argv[1], "r")) == NULL) {
+            fprintf(stderr, "Не удалось открыть файл users.csv");
+            exit(EXIT_FAILURE);
+        }
+        while(fgets(ar, ARSIZE, f)) {
+            while(ar[i] != '\n')
+                i++;
+            ar[i] = '\0';
+            p = addtree(p, ar);
+            i = 0;
+        }
+        print_tree_ASC(p);
+    }
+    else if (argc == 4 && strcmp("-o", argv[1]) == 0){
+        if ((f = fopen(argv[3], "r")) == NULL) {
+            fprintf(stderr, "Не удалось открыть файл users.csv");
+            exit(EXIT_FAILURE);
+        }
+        while(fgets(ar, ARSIZE, f)) {
+            while(ar[i] != '\n')
+                i++;
+            ar[i] = '\0';
+            p = addtree(p, ar);
+            i = 0;
+        }
+        if (strcmp(argv[2], "ASC") == 0)
+            print_tree_ASC(p);
+        else if (strcmp(argv[2], "DESC") == 0)
+            print_tree_DESC(p);
+        else
+            puts("Неправильный ввод");
+    }
+    else
+        puts("Неправильный ввод");
+    return 0;
+}
+
+Tnode *addtree (Tnode *ps, char *str){
+    int res;
+    if (ps == NULL){
+        ps = (Tnode *)malloc(sizeof(Tnode));
+        strcpy(ps->s, str);
+        ps->count = 1;
+        ps->left = ps->right = NULL;
+    }
+    else if ((res = strcmp(ps->s, str)) == 0) {
+        ps->count++;
+    }
+    else if (res < 0) {
+        ps->left = addtree(ps->left, str);
+    }
+    else {
+        ps->right = addtree(ps->right, str);
+    }
+    return ps;
+}
+
+void print_tree_DESC (Tnode *ps){
+    if (ps != NULL){
+        print_tree_DESC(ps->left);
+        printf("%s %d\n", ps->s, ps->count);
+        print_tree_DESC(ps->right);
+    }
+}
+
+void print_tree_ASC (Tnode *ps){
+    if (ps != NULL){
+        print_tree_ASC(ps->right);
+        printf("%s %d\n", ps->s, ps->count);
+        print_tree_ASC(ps->left);
+    }
+}
