@@ -95,3 +95,131 @@ void print_tree_ASC (Tnode *ps){
         print_tree_ASC(ps->left);
     }
 }
+
+TASK 2
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+#include <stdlib.h>
+#define HASHSIZE 100
+#define ARSIZE 100
+#define TSIZE 1000
+
+struct nlist {
+    struct nlist *next;
+    char *name;
+    unsigned long population;
+};
+
+static struct nlist *hashtab[HASHSIZE];
+struct nlist *install(char *name, unsigned long defn);
+void nremove (char *name, FILE *f);
+
+void print() {
+    struct nlist* np;
+    struct nlist* cpy;
+    for (int i = 0; i < HASHSIZE; i++, np++) {
+        if (np != NULL) {
+            for (cpy = hashtab[i]; cpy != NULL; cpy = cpy->next)
+                printf("%s %lu\n", cpy->name, cpy->population);
+        }
+    }
+}
+
+int main(int argc, char *argv[]){
+    FILE *f;
+    char name[ARSIZE];
+    unsigned long population;
+    int choice;
+    if (argc == 2){
+        puts("Menu: ");
+        printf("1 - add\n2 - remove\n3 - list\n");
+    }
+    else{
+        puts("Неправильный ввод");
+        return 1;
+    }
+    if ((f = fopen(argv[1], "r+")) == NULL){
+        exit(EXIT_FAILURE);
+    }
+
+    while(!feof(f)){
+        fscanf(f, "%s %lu", name, &population);
+        install(name, population);
+    }
+    while(scanf("%d", &choice)){
+        switch(choice){
+            case 1:
+                scanf("%s", name);
+                scanf("%lu", &population);
+                fprintf(f, "\n%s %lu", name, population);
+                install(name, choice);
+                break;
+            case 2:
+                scanf("%s", name);
+                nremove(name, f);
+                break;
+            case 3:
+                print();
+                break;
+            default:
+                puts("Неправильный ввод");
+                break;
+        }
+    }
+    return 0;
+}
+
+unsigned hash(char *s) {
+    unsigned hashval;
+    for (hashval = 0; *s != '\0'; s++)
+        hashval = *s + 31 * hashval;
+    return hashval % HASHSIZE;
+}
+
+struct nlist *lookup(char *s) {
+    struct nlist *np;
+    for (np = hashtab[hash(s)]; np != NULL; np = np->next)
+        if (strcmp(s, np->name) == 0)
+            return np;
+    return NULL;
+}
+
+struct nlist *install(char *name, unsigned long defn) {
+    struct nlist *np;
+    unsigned hashval;
+
+    if ((np = lookup(name)) == NULL) {
+        np = (struct nlist *) malloc(sizeof(*np));
+        if (np == NULL || (np->name = strdup(name)) == NULL) {
+            return NULL;
+        }
+        hashval = hash(name);
+        np->next = hashtab[hashval];
+        hashtab[hashval] = np;
+    }
+    np->population = defn;
+    return np;
+}
+
+void nremove (char *name, FILE *f){
+    struct nlist* current;
+    struct nlist* previous = hashtab[hash(name)];
+    int flag = 0;
+    for (current = hashtab[hash(name)]; current != NULL; current = current->next){
+        if (strcmp(current->name, name) == 0){
+            flag = 1;
+            if (current == hashtab[hash(name)]){
+                hashtab[hash(name)] = NULL;
+            }
+            else if (current->next != NULL)
+                previous->next = current->next;
+            else
+                previous->next = NULL;
+            free( current);
+            break;
+        }
+        previous = current;
+    }
+    
+}
